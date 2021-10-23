@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', path='/style.css')}}">
+    </head>
+    <style>
+        
+
+    </style>
+    <body>
+        <div class="container">
+            <h1>Messages Chat</h1>
+            <form action="" id="sendMessage">
+                <input type="text" id="messageText" autocomplete="off"/>
+                <button class="btn">Send</button>
+            </form>
+            <ul id='messages'>
+
+            </ul>
+        </div>
+        <script>
+            var sendMessage = document.getElementById('sendMessage')
+            var ws = new WebSocket("ws://localhost:8000/ws");
+            ws.onmessage = (event) => {
+                var messages = document.getElementById('messages')
+                var message = document.createElement('li')
+                var content = document.createTextNode(event.data)
+                message.appendChild(content)
+                messages.appendChild(message)
+            };
+
+            sendMessage.addEventListener('click', (event)=>{
+                var id  = 1
+                var messageId = id++
+                var input = document.getElementById("messageText")
+                ws.send(JSON.stringify({
+                    messageId : input.value,
+                }));
+                input.value = ''
+                event.preventDefault()
+            })
+
+        </script>
+    </body>
+</html>
