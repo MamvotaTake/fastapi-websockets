@@ -12,36 +12,13 @@
         <div class="container">
             <h1>Messages Chat</h1>
             <form action="" >
-                <input type="text" id="messageText" autocomplete="off"/>
-                <button class="btn" id="sendMessageBtn">Send</button>
+                <input type="text" id="messageText" name="name" autocomplete="off"/>
+                <input type ="button" class="btn" Value="Send" onclick="insert(this.form.name.value);">
             </form>
-            <ol id='messages'>
+            <ul id='messages'>
 
-            </ol>
+            </ul>
         </div>
-        <script>
-            var sendMessage = document.getElementById('sendMessage')
-            
-            var ws = new WebSocket("ws://localhost:8000/ws");
-            ws.onmessage = (event) => {
-                var messages = document.getElementById('messages')
-                var message = document.createElement('li')
-                var content = document.createTextNode(event.data)
-                message.appendChild(content)
-                messages.appendChild(message)
-        
-            };
-            
-            sendMessageBtn.addEventListener('click', (event)=>{
-                
-                var input = document.getElementById("messageText")
-                var string = JSON.stringify(input.value)
-                console.log(string)
-                ws.send(JSON.parse(string));
-                input.value = ''
-                event.preventDefault()
-            })
-
-        </script>
+        <script src="{{url_for('static', path='/script.js')}}"></script>
     </body>
 </html>
