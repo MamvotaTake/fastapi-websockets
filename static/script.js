@@ -1,7 +1,7 @@
 var sendMessage = document.getElementById('sendMessage')
 var input = document.getElementById("messageText")
 var messages = document.getElementById('messages')
-var array = new Array();
+//var array = new Array();
             
 var ws = new WebSocket("ws://localhost:8000/ws");
 ws.onmessage = (event) => {
@@ -13,19 +13,15 @@ ws.onmessage = (event) => {
 };
 
 
-insert = (val) =>{
-
-    array[array.length]=val;
+sendMessage = () =>{
 
     let input = document.getElementById("messageText")
     let string = input.value
     let message = string
-    let messageId = array.length
 
-    let fullMessageStr = `${messageId}. ${message}`;
+    let fullMessageStr = `${message}`;
     let fullMessage = JSON.stringify(fullMessageStr)
 
     ws.send(JSON.parse(fullMessage));
     input.value = ''
 }
-

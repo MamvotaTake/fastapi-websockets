@@ -2,3 +2,5 @@ fastapi~=0.70.0
 starlette~=0.16.0
 pydantic~=1.8.2
 sqlalchemy~=1.4.26
+
+# noinspection PyTypeChecker
