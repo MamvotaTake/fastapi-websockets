@@ -19,11 +19,8 @@ async def get(request: Request):
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
 
-    data = await websocket.receive_text()
     counter = 1
-    for _ in data:
-        counter = int(data.index(data))
     while True:
-        counter += 1
         data = await websocket.receive_text()
         await websocket.send_text(f"{counter}. {data}")
+        counter += 1
